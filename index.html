@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AI豆新声 | 会后意见收集</title>
+<style>
+:root {
+  --primary: #FF6A00;
+  --primary-light: #FF8C38;
+  --primary-dark: #E55D00;
+  --blue: #1677FF;
+  --blue-light: #4096FF;
+  --bg: #F5F6FA;
+  --card: #FFFFFF;
+  --text: #1A1A2E;
+  --text-secondary: #6B7280;
+  --border: #E5E7EB;
+  --success: #22C55E;
+  --radius: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+.hero {
+  background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+  padding: 48px 24px 56px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60%; left: -30%;
+  width: 160%; height: 160%;
+  background: radial-gradient(circle at 70% 40%, rgba(255,106,0,0.15) 0%, transparent 50%),
+              radial-gradient(circle at 30% 80%, rgba(22,119,255,0.12) 0%, transparent 50%);
+  animation: heroGlow 8s ease-in-out infinite alternate;
+}
+@keyframes heroGlow {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(20px, -10px) scale(1.05); }
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,106,0,0.15);
+  border: 1px solid rgba(255,106,0,0.3);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 12px;
+  color: var(--primary-light);
+  position: relative;
+  z-index: 1;
+  margin-bottom: 16px;
+}
+.hero-badge .dot {
+  width: 6px; height: 6px;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+.hero h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.3;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 8px;
+}
+.hero h1 span {
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  position: relative;
+  z-index: 1;
+  line-height: 1.6;
+}
+.hero-info {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 16px;
+  position: relative;
+  z-index: 1;
+}
+.hero-info-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+}
+.hero-info-item svg {
+  width: 14px; height: 14px;
+  fill: none;
+  stroke: rgba(255,255,255,0.4);
+  stroke-width: 2;
+}
+
+/* Form Container */
+.form-wrap {
+  padding: 0 16px 100px;
+  margin-top: -24px;
+  position: relative;
+  z-index: 2;
+}
+.form-section {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.section-title .icon {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.section-title .icon.orange { background: rgba(255,106,0,0.1); }
+.section-title .icon.blue { background: rgba(22,119,255,0.1); }
+.section-title .icon.green { background: rgba(34,197,94,0.1); }
+
+/* Form Fields */
+.field {
+  margin-bottom: 16px;
+}
+.field:last-child { margin-bottom: 0; }
+.field label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.field label .required {
+  color: #EF4444;
+  margin-left: 2px;
+}
+.field label .optional {
+  color: var(--text-secondary);
+  font-weight: 400;
+  font-size: 12px;
+  margin-left: 4px;
+}
+.field input[type="text"],
+.field input[type="tel"],
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  color: var(--text);
+  background: #FAFAFA;
+  transition: all 0.2s;
+  outline: none;
+  font-family: inherit;
+  -webkit-appearance: none;
+}
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-color: var(--blue);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(22,119,255,0.08);
+}
+.field textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.5;
+}
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236B7280' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+/* Rating Stars */
+.rating-group {
+  display: flex;
+  gap: 8px;
+}
+.rating-group .star {
+  width: 40px; height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  filter: grayscale(1) opacity(0.3);
+  -webkit-tap-highlight-color: transparent;
+}
+.rating-group .star.active {
+  filter: none;
+  transform: scale(1.1);
+}
+.rating-group .star:active { transform: scale(0.9); }
+
+/* Chip / Tag Select */
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  background: #FAFAFA;
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.chip.active {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: rgba(22,119,255,0.06);
+}
+.chip:active { transform: scale(0.96); }
+
+/* Submit Button */
+.submit-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  padding: 12px 16px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  z-index: 100;
+}
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.submit-btn:active { transform: scale(0.98); opacity: 0.9; }
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.submit-btn .spinner {
+  display: none;
+  width: 20px; height: 20px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Thank You Page */
+.thankyou {
+  display: none;
+  text-align: center;
+  padding: 80px 32px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+  position: relative;
+  overflow: hidden;
+}
+.thankyou.show {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.thankyou::before {
+  content: '';
+  position: absolute;
+  top: 30%; left: 50%;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(34,197,94,0.15) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+}
+.check-circle {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--success), #16A34A);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+  animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+@keyframes popIn {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.check-circle svg {
+  width: 40px; height: 40px;
+  stroke: #fff;
+  stroke-width: 3;
+  fill: none;
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: drawCheck 0.6s 0.3s ease forwards;
+}
+@keyframes drawCheck {
+  to { stroke-dashoffset: 0; }
+}
+.thankyou h2 {
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+.thankyou p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+  max-width: 280px;
+}
+.thankyou .qr-hint {
+  margin-top: 32px;
+  padding: 16px 24px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  position: relative;
+  z-index: 1;
+}
+.thankyou .qr-hint p {
+  color: rgba(255,255,255,0.7);
+  font-size: 13px;
+}
+.thankyou .brand {
+  margin-top: 48px;
+  position: relative;
+  z-index: 1;
+}
+.thankyou .brand-logo {
+  font-size: 14px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.5px;
+}
+.thankyou .brand-logo strong {
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+}
+
+/* Admin Panel */
+.admin-panel {
+  display: none;
+  padding: 16px;
+  padding-bottom: 100px;
+}
+.admin-panel.show { display: block; }
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.admin-header h3 { font-size: 18px; }
+.admin-header .count {
+  background: var(--primary);
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.admin-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.admin-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #fff;
+  color: var(--text);
+  transition: all 0.2s;
+}
+.admin-btn.primary {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+}
+.admin-btn:active { transform: scale(0.97); }
+.record-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.record-card .name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.record-card .name {
+  font-size: 16px;
+  font-weight: 600;
+}
+.record-card .time {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.record-card .info-row {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+.record-card .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+.record-card .tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(22,119,255,0.08);
+  color: var(--blue);
+}
+
+/* Floating admin trigger */
+.admin-trigger {
+  position: fixed;
+  top: 10px; right: 10px;
+  width: 4px; height: 4px;
+  background: transparent;
+  border: none;
+  z-index: 999;
+  cursor: pointer;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 1000;
+  opacity: 0;
+  transition: all 0.3s;
+  pointer-events: none;
+}
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Powered by */
+.powered-by {
+  text-align: center;
+  padding: 20px 0 0;
+  font-size: 11px;
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+</style>
+</head>
+<body>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Admin Trigger (invisible) -->
+<button class="admin-trigger" id="adminTrigger"></button>
+
+<!-- Main Form View -->
+<div id="formView">
+  <div class="hero">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      <span>2026 AI豆新声</span>
+    </div>
+    <h1><span>AI不设限</span> 豆创YOUNG未来</h1>
+    <p>感谢您参加本次活动！请花2分钟填写以下问卷<br>帮助我们为您提供更精准的AI解决方案</p>
+    <div class="hero-info">
+      <div class="hero-info-item">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>2026年4月29日</span>
+      </div>
+      <div class="hero-info-item">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>惠瀹未来中心</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-wrap">
+    <!-- Section 1: Basic Info -->
+    <div class="form-section">
+      <div class="section-title">
+        <div class="icon orange">👤</div>
+        基本信息
+      </div>
+      <div class="field">
+        <label>姓名 <span class="required">*</span></label>
+        <input type="text" id="f_name" placeholder="请输入您的姓名">
+      </div>
+      <div class="field">
+        <label>公司/单位 <span class="required">*</span></label>
+        <input type="text" id="f_company" placeholder="请输入公司或单位名称">
+      </div>
+      <div class="field">
+        <label>职位 <span class="optional">(选填)</span></label>
+        <input type="text" id="f_title" placeholder="请输入您的职位">
+      </div>
+      <div class="field">
+        <label>手机号码 <span class="required">*</span></label>
+        <input type="tel" id="f_phone" placeholder="请输入手机号码" maxlength="11">
+      </div>
+      <div class="field">
+        <label>微信号 <span class="optional">(选填)</span></label>
+        <input type="text" id="f_wechat" placeholder="请输入微信号，方便后续沟通">
+      </div>
+      <div class="field">
+        <label>公司规模</label>
+        <select id="f_scale">
+          <option value="">请选择</option>
+          <option value="1-50人">1-50人</option>
+          <option value="50-200人">50-200人</option>
+          <option value="200-500人">200-500人</option>
+          <option value="500-1000人">500-1000人</option>
+          <option value="1000人以上">1000人以上</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Section 2: Event Feedback -->
+    <div class="form-section">
+      <div class="section-title">
+        <div class="icon blue">⭐</div>
+        活动反馈
+      </div>
+      <div class="field">
+        <label>活动整体满意度 <span class="required">*</span></label>
+        <div class="rating-group" id="f_rating">
+          <div class="star" data-val="1">⭐</div>
+          <div class="star" data-val="2">⭐</div>
+          <div class="star" data-val="3">⭐</div>
+          <div class="star" data-val="4">⭐</div>
+          <div class="star" data-val="5">⭐</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>您最感兴趣的QoderWork功能 <span class="optional">(可多选)</span></label>
+        <div class="chip-group" id="f_features">
+          <div class="chip" data-val="AI智能办公助手">AI智能办公助手</div>
+          <div class="chip" data-val="代码开发辅助">代码开发辅助</div>
+          <div class="chip" data-val="文档/报告生成">文档/报告生成</div>
+          <div class="chip" data-val="数据分析处理">数据分析处理</div>
+          <div class="chip" data-val="工作流自动化">工作流自动化</div>
+          <div class="chip" data-val="多平台集成">多平台集成</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>日常需要优化和提效的工作 <span class="required">*</span></label>
+        <textarea id="f_painpoint" placeholder="请描述您日常工作中希望通过AI来优化和提高效率的场景..."></textarea>
+      </div>
+    </div>
+
+    <!-- Section 3: Intent -->
+    <div class="form-section">
+      <div class="section-title">
+        <div class="icon green">🎯</div>
+        合作意向
+      </div>
+      <div class="field">
+        <label>当前AI工具使用情况</label>
+        <select id="f_aiUsage">
+          <option value="">请选择</option>
+          <option value="尚未使用过AI工具">尚未使用过AI工具</option>
+          <option value="偶尔使用免费AI工具">偶尔使用免费AI工具</option>
+          <option value="已付费使用AI工具">已付费使用AI工具</option>
+          <option value="企业已部署AI解决方案">企业已部署AI解决方案</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>采购意向</label>
+        <select id="f_intent">
+          <option value="">请选择</option>
+          <option value="近期有采购计划(1个月内)">近期有采购计划(1个月内)</option>
+          <option value="短期内考虑(3个月内)">短期内考虑(3个月内)</option>
+          <option value="半年内有计划">半年内有计划</option>
+          <option value="暂无明确计划,先了解">暂无明确计划，先了解</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>是否希望预约产品演示</label>
+        <div class="chip-group" id="f_demo">
+          <div class="chip" data-val="是,尽快安排">是，尽快安排</div>
+          <div class="chip" data-val="是,但不着急">是，但不着急</div>
+          <div class="chip" data-val="暂不需要">暂不需要</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>其他建议或需求 <span class="optional">(选填)</span></label>
+        <textarea id="f_other" placeholder="如有其他想法或需求，请在此告诉我们..."></textarea>
+      </div>
+    </div>
+
+    <div class="powered-by">
+      Powered by 阿里巴巴 · QoderWork
+    </div>
+  </div>
+
+  <div class="submit-bar">
+    <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">
+      <span class="btn-text">提交问卷</span>
+      <div class="spinner"></div>
+    </button>
+  </div>
+</div>
+
+<!-- Thank You View -->
+<div class="thankyou" id="thankyouView">
+  <div class="check-circle">
+    <svg viewBox="0 0 24 24"><polyline points="6 12 10 16 18 8"/></svg>
+  </div>
+  <h2>感谢您的反馈！</h2>
+  <p>我们已收到您的信息，将在1-2个工作日内与您联系，为您安排专属的QoderWork产品体验。</p>
+  <div class="qr-hint">
+    <p>如需更快获取产品信息，欢迎直接联系<br>阿里巴巴QoderWork团队</p>
+  </div>
+  <div class="brand">
+    <div class="brand-logo"><strong>Alibaba</strong> · QoderWork</div>
+  </div>
+</div>
+
+<!-- Admin Panel View -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-header">
+    <h3>📋 数据管理</h3>
+    <span class="count" id="recordCount">0</span>
+  </div>
+  <div class="admin-actions">
+    <button class="admin-btn" onclick="exportCSV()">导出CSV</button>
+    <button class="admin-btn primary" onclick="closeAdmin()">返回表单</button>
+  </div>
+  <div id="recordList"></div>
+</div>
+
+<script>
+// ==================== Data Store ====================
+const DB_KEY = 'ai_dou_feedback_records';
+let records = [];
+try { records = JSON.parse(localStorage.getItem(DB_KEY) || '[]'); } catch(e) { records = []; }
+
+function saveRecords() {
+  try { localStorage.setItem(DB_KEY, JSON.stringify(records)); } catch(e) {}
+}
+
+// ==================== Rating ====================
+let currentRating = 0;
+document.querySelectorAll('#f_rating .star').forEach(star => {
+  star.addEventListener('click', () => {
+    currentRating = parseInt(star.dataset.val);
+    document.querySelectorAll('#f_rating .star').forEach((s, i) => {
+      s.classList.toggle('active', i < currentRating);
+    });
+  });
+});
+
+// ==================== Chip Single Select ====================
+document.querySelectorAll('#f_demo .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#f_demo .chip').forEach(c => c.classList.remove('active'));
+    chip.classList.toggle('active');
+  });
+});
+
+// ==================== Chip Multi Select ====================
+document.querySelectorAll('#f_features .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    chip.classList.toggle('active');
+  });
+});
+
+// ==================== Toast ====================
+function showToast(msg, duration = 2000) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+// ==================== Submit ====================
+function handleSubmit() {
+  const name = document.getElementById('f_name').value.trim();
+  const company = document.getElementById('f_company').value.trim();
+  const phone = document.getElementById('f_phone').value.trim();
+  const painpoint = document.getElementById('f_painpoint').value.trim();
+
+  // Validation
+  if (!name) { showToast('请填写姓名'); return; }
+  if (!company) { showToast('请填写公司/单位'); return; }
+  if (!phone) { showToast('请填写手机号码'); return; }
+  if (!/^1\d{10}$/.test(phone)) { showToast('请输入正确的手机号码'); return; }
+  if (currentRating === 0) { showToast('请给活动打个分'); return; }
+  if (!painpoint) { showToast('请描述日常需要优化的工作'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.querySelector('.btn-text').style.display = 'none';
+  btn.querySelector('.spinner').style.display = 'block';
+
+  const features = [];
+  document.querySelectorAll('#f_features .chip.active').forEach(c => features.push(c.dataset.val));
+
+  const demoChip = document.querySelector('#f_demo .chip.active');
+
+  const record = {
+    id: Date.now(),
+    time: new Date().toLocaleString('zh-CN'),
+    name: name,
+    company: company,
+    title: document.getElementById('f_title').value.trim(),
+    phone: phone,
+    wechat: document.getElementById('f_wechat').value.trim(),
+    scale: document.getElementById('f_scale').value,
+    rating: currentRating,
+    features: features,
+    painpoint: painpoint,
+    aiUsage: document.getElementById('f_aiUsage').value,
+    intent: document.getElementById('f_intent').value,
+    demo: demoChip ? demoChip.dataset.val : '',
+    other: document.getElementById('f_other').value.trim()
+  };
+
+  records.push(record);
+  saveRecords();
+
+  // Simulate network delay
+  setTimeout(() => {
+    document.getElementById('formView').style.display = 'none';
+    document.getElementById('thankyouView').classList.add('show');
+    btn.disabled = false;
+    btn.querySelector('.btn-text').style.display = '';
+    btn.querySelector('.spinner').style.display = 'none';
+  }, 800);
+}
+
+// ==================== Admin Panel ====================
+let adminTapCount = 0;
+let adminTapTimer = null;
+document.getElementById('adminTrigger').addEventListener('click', () => {
+  adminTapCount++;
+  clearTimeout(adminTapTimer);
+  adminTapTimer = setTimeout(() => { adminTapCount = 0; }, 2000);
+  if (adminTapCount >= 5) {
+    adminTapCount = 0;
+    showAdmin();
+  }
+});
+
+function showAdmin() {
+  document.getElementById('formView').style.display = 'none';
+  document.getElementById('thankyouView').classList.remove('show');
+  document.getElementById('adminPanel').classList.add('show');
+  document.getElementById('recordCount').textContent = records.length;
+  renderRecords();
+}
+
+function closeAdmin() {
+  document.getElementById('adminPanel').classList.remove('show');
+  document.getElementById('formView').style.display = '';
+  resetForm();
+}
+
+function renderRecords() {
+  const list = document.getElementById('recordList');
+  if (records.length === 0) {
+    list.innerHTML = '<div style="text-align:center;padding:40px;color:#999;">暂无记录</div>';
+    return;
+  }
+  list.innerHTML = records.slice().reverse().map(r => `
+    <div class="record-card">
+      <div class="name-row">
+        <span class="name">${esc(r.name)}</span>
+        <span class="time">${esc(r.time)}</span>
+      </div>
+      <div class="info-row">${esc(r.company)} · ${esc(r.title || '未填写')} · ${esc(r.phone)}</div>
+      <div class="info-row">满意度: ${'⭐'.repeat(r.rating)} | AI使用: ${esc(r.aiUsage || '未选')}</div>
+      <div class="info-row">采购意向: ${esc(r.intent || '未选')} | 预约演示: ${esc(r.demo || '未选')}</div>
+      <div class="info-row">需优化工作: ${esc(r.painpoint)}</div>
+      ${r.features.length ? '<div class="tags">' + r.features.map(f => '<span class="tag">' + esc(f) + '</span>').join('') + '</div>' : ''}
+    </div>
+  `).join('');
+}
+
+function esc(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function resetForm() {
+  ['f_name','f_company','f_title','f_phone','f_wechat','f_painpoint','f_other'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('f_scale').selectedIndex = 0;
+  document.getElementById('f_aiUsage').selectedIndex = 0;
+  document.getElementById('f_intent').selectedIndex = 0;
+  currentRating = 0;
+  document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+}
+
+// ==================== CSV Export ====================
+function exportCSV() {
+  if (records.length === 0) { showToast('暂无数据可导出'); return; }
+  const headers = ['提交时间','姓名','公司/单位','职位','手机号码','微信号','公司规模','活动满意度','最感兴趣的功能','日常需要优化提效的工作','当前AI工具使用情况','采购意向','预约演示','其他建议'];
+  const rows = records.map(r => [
+    r.time, r.name, r.company, r.title, r.phone, r.wechat, r.scale,
+    r.rating, r.features.join('、'), r.painpoint, r.aiUsage, r.intent, r.demo, r.other
+  ]);
+  const csv = '\uFEFF' + [headers, ...rows].map(row =>
+    row.map(cell => '"' + String(cell || '').replace(/"/g, '""') + '"').join(',')
+  ).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `AI豆新声_商机数据_${new Date().toLocaleDateString('zh-CN').replace(/\//g,'-')}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('CSV已下载');
+}
+</script>
+
+</body>
+</html>
