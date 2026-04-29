@@ -1,0 +1,12 @@
+name = "ai-dou-feedback-api"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+BASE_ID = "oP0MALyR8kzGnoOwFKyg5Do9J3bzYmDO"
+TABLE_ID = "hERWDMS"
+
+# 以下为敏感信息，请通过 wrangler secret put 命令设置：
+# DINGTALK_APP_KEY    - 钉钉内部应用的 Client ID
+# DINGTALK_APP_SECRET - 钉钉内部应用的 Client Secret
+# OPERATOR_ID         - 你的钉钉 unionId
